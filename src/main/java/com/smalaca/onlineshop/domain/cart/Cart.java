@@ -1,5 +1,7 @@
 package com.smalaca.onlineshop.domain.cart;
 
+import com.smalaca.onlineshop.domain.offer.Offer;
+
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +18,7 @@ import static javax.persistence.FetchType.EAGER;
 public class Cart {
     @Id
     @GeneratedValue
-    private UUID id;
+    private UUID cartId;
 
     private UUID buyerId;
 
@@ -25,5 +27,9 @@ public class Cart {
 
     public void add(UUID productId) {
         productIds.add(productId);
+    }
+
+    public Offer offerFor(CreateOfferCommand command) {
+        return null;
     }
 }
