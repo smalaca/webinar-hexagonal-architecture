@@ -22,7 +22,7 @@ public class OfferCommands {
     public UUID create(UUID buyerId, CreateOfferCommand command) {
         Cart cart = cartRepository.findFor(buyerId);
 
-        Offer offer = cart.offerFor(command);
+        Offer offer = cart.offerFor(buyerId, command);
 
         return offerRepository.save(offer);
     }

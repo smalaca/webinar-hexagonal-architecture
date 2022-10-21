@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static java.util.stream.Collectors.toList;
 import static javax.persistence.FetchType.EAGER;
 
 @Entity
@@ -30,7 +31,34 @@ public class Cart {
         products.add(product.asCartItem());
     }
 
-    public Offer offerFor(CreateOfferCommand command) {
-        return null;
+    public Offer offerFor(UUID buyerId, CreateOfferCommand command) {
+        List<CartItem> productsInTheCart = productsInTheCart(command);
+
+        if (areAllSelectedInTheCart(productsInTheCart, command)) {
+            Offer.Builder builder = new Offer.Builder(buyerId);
+            productsInTheCart.forEach(item -> {
+                builder.product(item.getProductId(), item.getSellerId(), item.getPrice());
+            });
+
+            return builder.build();
+        } else {
+            List<UUID> productIds = productsInTheCart.stream()
+                    .map(CartItem::getProductId)
+                    .collect(toList());
+
+            throw new ProductsNotInTheCartException(productIds, command.getProductIds());
+        }
+    }
+
+    private boolean areAllSelectedInTheCart(List<CartItem> productsInTheCart, CreateOfferCommand command) {
+        return productsInTheCart.size() == command.getProductIds().size();
+    }
+
+    private List<CartItem> productsInTheCart(CreateOfferCommand command) {
+        List<UUID> productIds = command.getProductIds();
+
+        return products.stream()
+                .filter(cartItem -> cartItem.wasSelected(productIds))
+                .collect(toList());
     }
 }
