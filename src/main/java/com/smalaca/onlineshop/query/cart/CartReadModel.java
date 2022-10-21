@@ -17,7 +17,7 @@ import static javax.persistence.FetchType.EAGER;
 @Getter
 public class CartReadModel {
     @Id
-    private UUID id;
+    private UUID cartId;
 
     private UUID buyerId;
 

@@ -12,5 +12,5 @@ import java.util.UUID;
 @Getter
 public class ProductReadModel {
     @Id
-    private UUID id;
+    private UUID productId;
 }
