@@ -1,6 +1,6 @@
 package com.smalaca.onlineshop.infrastructure.api.rest.product;
 
-import com.smalaca.onlineshop.query.product.ProductDto;
+import com.smalaca.onlineshop.query.product.ProductReadModel;
 import com.smalaca.onlineshop.query.product.ProductQueries;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +20,7 @@ public class ProductRestController {
     }
 
     @GetMapping
-    public List<ProductDto> findAllBy(@RequestParam Map<String, String> filters) {
+    public List<ProductReadModel> findAllBy(@RequestParam Map<String, String> filters) {
         return productQueries.findAllBy(filters);
     }
 }

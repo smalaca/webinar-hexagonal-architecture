@@ -15,7 +15,7 @@ public class ProductQueries {
         this.repository = repository;
     }
 
-    public List<ProductDto> findAllBy(Map<String, String> filters) {
+    public List<ProductReadModel> findAllBy(Map<String, String> filters) {
         return emptyList();
     }
 }
