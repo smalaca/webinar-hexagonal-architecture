@@ -5,6 +5,7 @@ import com.smalaca.onlineshop.domain.cart.CartRepository;
 import com.smalaca.onlineshop.domain.product.Product;
 import com.smalaca.onlineshop.domain.product.ProductRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -18,6 +19,7 @@ public class CartCommands {
         this.productRepository = productRepository;
     }
 
+    @Transactional
     public void addProduct(UUID buyerId, UUID productId) {
         Cart cart = cartRepository.findFor(buyerId);
         Product product = productRepository.findById(productId);

@@ -6,6 +6,7 @@ import com.smalaca.onlineshop.domain.cart.CreateOfferCommand;
 import com.smalaca.onlineshop.domain.offer.Offer;
 import com.smalaca.onlineshop.domain.offer.OfferRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -19,6 +20,7 @@ public class OfferCommands {
         this.cartRepository = cartRepository;
     }
 
+    @Transactional
     public UUID create(UUID buyerId, CreateOfferCommand command) {
         Cart cart = cartRepository.findFor(buyerId);
 
